@@ -1,0 +1,46 @@
+name: Build Docker Images
+
+on:
+  pull_request:
+    branches: ["dev"]
+  push:
+    branches: ["dev"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          - name: camera_detect
+            context: .
+            dockerfile: ./camera_detect/api_endpoint/Dockerfile
+            image: camera-api
+          - name: licence_ocr_rest
+            context: .
+            dockerfile: ./licence_ocr/api_endpoint/Dockerfile
+            image: licence-api
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker images (no push)
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.service.context }}
+          file: ${{ matrix.service.dockerfile }}
+          push: false
+          tags: |
+            ${{ matrix.service.image }}:latest
+            ${{ matrix.service.image }}:${{ github.sha }}
+
+      - name: Confirm built image
+        run: |
+          echo " Image built successfully: ${{ matrix.service.image }}:latest"
