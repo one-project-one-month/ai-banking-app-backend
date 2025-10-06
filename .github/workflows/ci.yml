@@ -3,9 +3,9 @@ name: Docker Compose CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "feat/*" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "dev" ]
 
 jobs:
   build:
@@ -15,16 +15,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+          # - name: Set up Docker Buildx
+          #   uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker Compose services
-        run: docker compose -f docker-compose.yml build
+          #  - name: Build Docker Compose services
+          #    run: docker compose -f docker-compose.yml build
 
-      - name: Run Docker Compose services
-        run: docker compose -f docker-compose.yml up -d
+          #  - name: Run Docker Compose services
+          #    run: docker compose -f docker-compose.yml up -d
 
-      - name: Show running containers
-        run: docker ps -a
+          #  - name: Show running containers
+          #    run: docker ps -a
 
 
