@@ -29,7 +29,24 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --port 5001
     networks:
       - backend
-
+  
+  chatbot:
+    build:
+      context: .
+      dockerfile: chatbot/api_endpoint/Dockerfile
+    container_name: chatbot
+    restart: always
+    ports:
+      - "5080:5080"  
+      - "5030:5030"  
+    volumes:
+      - ./chatbot/api_endpoint:/app
+    working_dir: /app
+    env_file:
+      - .env
+    command: sh -c "mlflow server --host 0.0.0.0 --port 5030 --backend-store-uri sqlite:///mlflow.db & uvicorn main:app --host 0.0.0.0 --port 5080"
+    networks:
+      - backend
 networks:
   backend:
     driver: bridge
