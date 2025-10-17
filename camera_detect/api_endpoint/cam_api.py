@@ -2,9 +2,6 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse, JSONResponse
 from contextlib import asynccontextmanager
 import uvicorn
-import asyncio
-import cv2
-import json
 from model_cam import OpenCam
 
 camera_instance = None
