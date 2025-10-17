@@ -2,14 +2,9 @@ import os
 import sys
 import grpc
 from concurrent import futures
-
-REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-if REPO_ROOT not in sys.path:
-    sys.path.insert(0, REPO_ROOT)
-
 import chatbot_pb2_grpc, chatbot_pb2
-from chatbot.api_endpoint.model_work import RefactorModel
-from chatbot.api_endpoint.db_access import RetrieveData
+from utils.model_work import RefactorModel
+from utils.db_access import RetrieveData
 
 class RefactorChatbotService(chatbot_pb2_grpc.chatbot_serviceServicer):
     def AddChatRequest(self, request, context):

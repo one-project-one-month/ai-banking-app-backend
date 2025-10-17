@@ -1,7 +1,7 @@
 from groq import Groq
 import os
 from dotenv import load_dotenv
-from db_access import RetrieveData
+from utils.db_access import RetrieveData
 
 load_dotenv()
 
