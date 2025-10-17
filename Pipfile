@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 pytesseract = "*"
 matplotlib = "*"
-opencv-python = "*"
 fastapi = "*"
 uvicorn = "*"
 pydantic = "*"
@@ -21,6 +20,8 @@ groq = "*"
 dotenv = "*"
 mlflow = "==2.14.0"
 grpcio = "==1.75.1"
+click = "*"
+exceptiongroup = "*"
 
 [dev-packages]
 ipykernel = "*"
