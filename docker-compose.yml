@@ -10,7 +10,7 @@ services:
     ports:
       - "5006:5006"  
     volumes:
-      - ./camera_detect:/app
+      - ./camera_detect/api_endpoint:/app
     command: uvicorn cam_api:app --host 0.0.0.0 --port 5006
     networks:
       - backend
