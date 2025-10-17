@@ -1,0 +1,15 @@
+syntax = "proto3"; 
+
+package chatbot;
+
+service chatbot_service {
+    rpc AddChatRequest(AddRequest) returns (ResponseModel);
+}
+
+message AddRequest {
+    string request = 1;
+}
+
+message ResponseModel {
+    string response = 1; 
+}
