@@ -48,15 +48,12 @@ class RetrieveData:
         final_db = dict(zip(sg_q, sg_a))
         return final_db
     
-    def preprocessing_doc(self, final_db):
+    def preprocessing_doc(self):
         """Tokenize the data"""
-        tokenized_data = [word_tokenize(document.lower()) for document in final_db]
-        tagged_data = [TaggedDocument(words=words, tags=[str(idx)])
-               for idx, words in enumerate(tokenized_data)]
-        model = Doc2Vec(vector_size=100, window=2, min_count=1, workers=4, epochs=1000)
-        model.build_vocab(tagged_data)
-        model.train(tagged_data, total_examples=model.corpus_count,
-                    epochs=model.epochs)
+        #tokenized_data = [word_tokenize(document.lower()) for document in final_db]
+        #tagged_data = [TaggedDocument(words=words, tags=[str(idx)])
+        #       for idx, words in enumerate(tokenized_data)]
+        model = Doc2Vec.load("doc2vec_model.model")
         inferred_vector = model.infer_vector(word_tokenize(self.user_input.lower()))
         similar_documents = model.dv.most_similar(
         [inferred_vector], topn=len(model.dv))
@@ -80,15 +77,15 @@ class RetrieveData:
 
         return result_data
 
-#if __name__ == "__main__":
-#    db = RetrieveData()
-#    db.connect()
-#    db.user_input = "what is programming"
-#    ques_ret = db.retrieve_questions()
-#    ans_ret = db.retrieve_answers()
-#    db.close()
-#    concat_qa = db.concat(ques_ret, ans_ret)
-#    pre_dc = db.preprocessing_doc(concat_qa)
-#    take_sim = db.most_sim(concat_qa, pre_dc)
-#   print(take_sim)
+if __name__ == "__main__":
+    db = RetrieveData()
+    db.connect()
+    db.user_input = "what is programming"
+    ques_ret = db.retrieve_questions()
+    ans_ret = db.retrieve_answers()
+    db.close()
+    concat_qa = db.concat(ques_ret, ans_ret)
+    pre_dc = db.preprocessing_doc()
+    take_sim = db.most_sim(concat_qa,pre_dc)
+    print(take_sim)
 

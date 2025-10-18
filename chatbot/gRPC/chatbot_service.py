@@ -15,7 +15,7 @@ class RefactorChatbotService(chatbot_pb2_grpc.chatbot_serviceServicer):
         ans_ret = db.retrieve_answers()
         db.close()
         concat_qa = db.concat(ques_ret, ans_ret)
-        pre_dc = db.preprocessing_doc(concat_qa)
+        pre_dc = db.preprocessing_doc()
         take_sim = db.most_sim(concat_qa, pre_dc)
 
         model = RefactorModel()

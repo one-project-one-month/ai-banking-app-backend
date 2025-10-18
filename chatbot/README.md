@@ -2,6 +2,10 @@
 
 This service exposes REST API for querying a RefactorModel that uses stored FAQ data to retrieve and return the best matching answer.
 
+## Model Workflow
+![Model Workflow](images/model_workflow.png)  
+*Figure 1: Model Workflow*
+
 ## Overview
 
 - Framework: FastAPI
@@ -150,6 +154,40 @@ Notes:
 - Very large inputs: May increase Doc2Vec inference time; consider truncating or rate-limiting requests.
 - DB empty: `retrieve_questions()` will return an empty list and training will fail — handle this case by returning a clear message and HTTP 204/400.
 
+## Microservice / gRPC 
+
+Although this repository exposes a REST API (FastAPI + Uvicorn) as the primary entrypoint, the chatbot functionality can also be used as a microservice via gRPC. A gRPC-compatible interface is available under the `chatbot/gRPC` directory in this repository and contains a protobuf definition, server and client examples.
+
+Why use gRPC / microservice mode:
+- Lower latency and smaller message sizes compared to JSON/HTTP for internal service-to-service communication.
+- Strongly-typed contracts via protobufs which make cross-language integrations easier.
+- Built-in support for streaming and bi-directional RPCs if you need conversational flows or long-running interactions.
+
+Quick pointers to get started with the microservice mode:
+
+- See `chatbot/gRPC/chatbot.proto` for the RPC contract and message types.
+- The gRPC server implementation is in `chatbot/gRPC/chatbot_server.py` (or similar server file) and a simple client example is in `chatbot/gRPC/chatbot_client.py`.
+- To run the gRPC server locally, ensure you have the Python gRPC packages installed (e.g. `grpcio` and `grpcio-tools`) and run the server module. Then use the client example to send requests. The gRPC code in the repo includes generated stubs (`chatbot_pb2.py`, `chatbot_pb2_grpc.py`) to make this straightforward.
+
+Example (high level):
+
+1. Install dependencies for gRPC (in your virtualenv):
+
+```bash
+pip install grpcio grpcio-tools
+```
+
+2. Start the gRPC server (from the repo root or the `chatbot/gRPC` folder):
+
+```bash
+python -m chatbot/gRPC/chatbot_server
+```
+
+3. Run the client example to query the service:
+
+```bash
+python chatbot/gRPC/chatbot_client.py
+```
 
 ## Files of interest
 

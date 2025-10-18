@@ -38,7 +38,7 @@ def request_text(textRequest: textRequest) -> str:
             ques_ret = db.retrieve_questions()
             ans_ret = db.retrieve_answers()
             concat_qa = db.concat(ques_ret, ans_ret)
-            pre_dc = db.preprocessing_doc(concat_qa)
+            pre_dc = db.preprocessing_doc()
             take_sim = db.most_sim(concat_qa, pre_dc)
             
             result_work = model['RefactorModel'].model_work(take_sim)
