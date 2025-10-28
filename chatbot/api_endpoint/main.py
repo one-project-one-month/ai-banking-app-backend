@@ -16,7 +16,7 @@ mlflow.set_experiment(os.getenv("MLFLOW_EXPERIMENT_NAME"))
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Initialize the Refactor model on startup and clean up on shutdown."""
-    model_work = RefactorModel()
+    model_work = RefactorModel() # RefactorModel
     model['RefactorModel'] = model_work 
     yield 
 
