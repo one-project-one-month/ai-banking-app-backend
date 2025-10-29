@@ -10,7 +10,7 @@ import sentry_sdk
 import uvicorn
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from ocr_model import OCR_Model
+from utils import model_ocr
 from sentry_sdk.integrations.fastapi import FastApiIntegration
 from sentry_sdk.integrations.starlette import StarletteIntegration
 
@@ -22,7 +22,7 @@ ocr_model = {}
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Initialize the OCR model on startup and clean up on shutdown."""
-    ocr_model_worker = OCR_Model()
+    ocr_model_worker = model_ocr.OCR_Model()
     ocr_model["OCR_Model"] = ocr_model_worker
     yield
     ocr_model.clear()

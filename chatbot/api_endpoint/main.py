@@ -1,4 +1,4 @@
-from model_work import RefactorModel
+from utils import chat_model_work
 from db_access import RetrieveData
 from fastapi import FastAPI
 import uvicorn 
@@ -16,7 +16,7 @@ mlflow.set_experiment(os.getenv("MLFLOW_EXPERIMENT_NAME"))
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Initialize the Refactor model on startup and clean up on shutdown."""
-    model_work = RefactorModel() # RefactorModel
+    model_work = chat_model_work.RefactorModel() # RefactorModel
     model['RefactorModel'] = model_work 
     yield 
 

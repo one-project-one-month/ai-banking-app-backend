@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse, JSONResponse
 from contextlib import asynccontextmanager
 import uvicorn
-from model_cam import OpenCam
+from utils import model_cam
 
 camera_instance = None
 
@@ -11,7 +11,7 @@ async def lifespan(app: FastAPI):
     """Manage camera lifecycle"""
     global camera_instance
     try:
-        camera_instance = OpenCam()
+        camera_instance = model_cam.OpenCam()
         print("Camera initialized successfully")
     except Exception as e:
         print(f"Failed to initialize camera: {e}")

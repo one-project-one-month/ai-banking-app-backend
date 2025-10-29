@@ -53,7 +53,7 @@ class RetrieveData:
         #tokenized_data = [word_tokenize(document.lower()) for document in final_db]
         #tagged_data = [TaggedDocument(words=words, tags=[str(idx)])
         #       for idx, words in enumerate(tokenized_data)]
-        model = Doc2Vec.load("doc2vec_model.model")
+        model = Doc2Vec.load("utils/doc2vec_model.model")
         inferred_vector = model.infer_vector(word_tokenize(self.user_input.lower()))
         similar_documents = model.dv.most_similar(
         [inferred_vector], topn=len(model.dv))

@@ -25,25 +25,21 @@ A FastAPI-based backend application for AI-powered banking services, featuring O
 
 ```
 licence_ocr/
-├── README.md
-├── utils.py
-├── api_endpoint/
+├── api_endpoint
 │   ├── Dockerfile
-│   ├── ocr.proto
-│   ├── __pycache__/
-│   ├── gRPC/
+│   ├── gRPC
 │   │   ├── ocr_client.py
 │   │   ├── ocr_grpc_model.py
 │   │   ├── ocr_pb2_grpc.py
 │   │   ├── ocr_pb2.py
-│   │   └── ocr_server.py
-│   └── rest/
-│       ├── main.py
-│       ├── ocr_model.py
-│       └── __pycache__/
-├── images/
-│   ├── ocr_doc.png
-│   └── ocr_postman.png
+│   │   ├── ocr_server.py
+│   │   └── ocr.proto
+│   ├── main.py
+│   ├── ocr_model_work.ipynb
+│   └── utils
+│       ├── __init__.py
+│       └── model_ocr.py
+└── README.md
 ```
 
 ## Installation
@@ -104,7 +100,7 @@ python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ocr.proto
 ---
 
 
-### Starting the API Server in *licence_ocr/api_endpoint/rest* directory
+### Starting the API Server in *licence_ocr/api_endpoint* directory
 
 ```bash
 uvicorn main:app --reload --port 5001 
