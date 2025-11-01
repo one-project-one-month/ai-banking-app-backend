@@ -41,6 +41,7 @@ services:
       - "5030:5030"  
     volumes:
       - ./chatbot/api_endpoint:/app
+      - ~/.cache/huggingface:/root/.cache/huggingface
     working_dir: /app
     env_file:
       - .env

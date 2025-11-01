@@ -23,6 +23,7 @@ click = "*"
 exceptiongroup = "*"
 mediapipe = "==0.10.13"
 openai = "*"
+sentence-transformers = "*"
 
 [dev-packages]
 ipykernel = "*"
