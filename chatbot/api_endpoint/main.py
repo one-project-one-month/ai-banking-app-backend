@@ -7,11 +7,16 @@ from schema import textRequest
 import mlflow 
 import os
 import traceback 
+import dagshub
+
+#dagshub.init(repo_owner='Ye-Bhone-Lin', repo_name='ai-banking-app-backend', mlflow=True)
 
 model = {}
 
 mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))  
 mlflow.set_experiment(os.getenv("MLFLOW_EXPERIMENT_NAME"))
+
+print("Completed", mlflow.get_tracking_uri())
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -44,6 +49,8 @@ def request_text(textRequest: textRequest) -> str:
             result_work = model['RefactorModel'].model_work(take_sim)
 
             mlflow.log_param("model_output", result_work)
+           # mlflow.log_artifacts()
+           # mlflow.autolog()
             return result_work
         
         except Exception as e:

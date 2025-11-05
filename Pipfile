@@ -13,16 +13,17 @@ python-multipart = "*"
 sentry-sdk = "*"
 python-dotenv = "*"
 psycopg2-binary = "*"
-gensim = "*"
 nltk = "*"
 groq = "*"
 dotenv = "*"
-mlflow = "==2.14.0"
 grpcio = "==1.75.1"
 click = "*"
 exceptiongroup = "*"
 mediapipe = "==0.10.13"
 openai = "*"
+dagshub = "*"
+gensim = "*"
+mlflow = "*"
 
 [dev-packages]
 ipykernel = "*"
@@ -30,3 +31,6 @@ ipykernel = "*"
 [requires]
 python_version = "3.11"
 python_full_version = "3.11.13"
+
+[pipenv]
+allow_prereleases = true
