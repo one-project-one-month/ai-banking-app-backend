@@ -7,11 +7,25 @@ from schema import textRequest
 import mlflow 
 import os
 import traceback 
+from dotenv import load_dotenv 
+import dagshub
+
+load_dotenv()
 
 model = {}
 
-mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))  
+DAGSHUB_REPO_OWNER = os.getenv("DAGSHUB_REPO_OWNER", "Ye-Bhone-Lin")
+DAGSHUB_REPO_NAME = os.getenv("DAGSHUB_REPO_NAME", "ai-banking-app-backend")
+dagshub.init(repo_owner=DAGSHUB_REPO_OWNER, repo_name=DAGSHUB_REPO_NAME, mlflow=True)
+
+
+mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI_v1"))  
+
 mlflow.set_experiment(os.getenv("MLFLOW_EXPERIMENT_NAME"))
+
+mlflow.autolog(log_models=False)
+
+mlflow.set_tag("repo", f"{DAGSHUB_REPO_OWNER}/{DAGSHUB_REPO_NAME}")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -44,15 +58,17 @@ def request_text(textRequest: textRequest) -> str:
             result_work = model['RefactorModel'].model_work(take_sim)
 
             mlflow.log_param("model_output", result_work)
+            
+            
             return result_work
-        
+
         except Exception as e:
 
             error_trace = traceback.format_exc()
 
             mlflow.log_param("error_type", error_trace)
 
-            return {"Error Occured"}
+            return {"Error Occured"}    
 
 
         finally:
