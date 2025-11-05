@@ -46,7 +46,7 @@ def request_text(textRequest: textRequest) -> str:
     db.connect()
     db.user_input = textRequest.SQL_QUERY
 
-    with mlflow.start_run(run_name="API_Request_Run"):
+    with mlflow.start_run(run_name="API_Request_Run", nested=True):
         mlflow.log_param("input_query", textRequest.SQL_QUERY)
         try:
             ques_ret = db.retrieve_questions()
