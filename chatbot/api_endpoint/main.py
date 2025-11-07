@@ -9,6 +9,7 @@ import os
 import traceback 
 from dotenv import load_dotenv 
 import dagshub
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
@@ -16,8 +17,8 @@ model = {}
 
 DAGSHUB_REPO_OWNER = os.getenv("DAGSHUB_REPO_OWNER", "Ye-Bhone-Lin")
 DAGSHUB_REPO_NAME = os.getenv("DAGSHUB_REPO_NAME", "ai-banking-app-backend")
-dagshub.init(repo_owner=DAGSHUB_REPO_OWNER, repo_name=DAGSHUB_REPO_NAME, mlflow=True)
 
+dagshub.init(repo_owner=DAGSHUB_REPO_OWNER, repo_name=DAGSHUB_REPO_NAME, mlflow=True)
 
 mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI_v1"))  
 
@@ -38,7 +39,20 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-@app.post("/queryRequest")
+origins = [
+    "http://localhost:7777",
+    "https://banking-dummy-backend.onrender.com/",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.post("/ask")
 @mlflow.trace
 def request_text(textRequest: textRequest) -> str:
     """Request Model"""
@@ -59,8 +73,7 @@ def request_text(textRequest: textRequest) -> str:
 
             mlflow.log_param("model_output", result_work)
             
-            
-            return result_work
+            return {"answer": result_work}
 
         except Exception as e:
 
