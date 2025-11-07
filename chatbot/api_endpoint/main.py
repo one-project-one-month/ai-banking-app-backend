@@ -10,6 +10,7 @@ import traceback
 from dotenv import load_dotenv 
 import dagshub
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 load_dotenv()
 
@@ -73,7 +74,7 @@ def request_text(textRequest: textRequest) -> str:
 
             mlflow.log_param("model_output", result_work)
             
-            return {"answer": result_work}
+            return JSONResponse(content={"answer": result_work})
 
         except Exception as e:
 
@@ -81,8 +82,7 @@ def request_text(textRequest: textRequest) -> str:
 
             mlflow.log_param("error_type", error_trace)
 
-            return {"Error Occured"}    
-
+            return JSONResponse(content={"error": str(e)})
 
         finally:
             db.close()
