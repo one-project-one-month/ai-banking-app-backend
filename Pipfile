@@ -32,4 +32,4 @@ isort = "*"
 
 [requires]
 python_version = "3.11"
-python_full_version = "3.11.14"
+python_full_version = "3.11.13"
