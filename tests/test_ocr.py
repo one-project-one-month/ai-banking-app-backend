@@ -10,7 +10,6 @@ from licence_ocr.api_endpoint.utils.ocr_model import OCR_Model
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
-
 class TestLicenceOCR(unittest.TestCase):
     """Tests for the Licence OCR model."""
 
