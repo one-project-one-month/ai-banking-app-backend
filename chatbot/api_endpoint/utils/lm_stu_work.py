@@ -1,6 +1,7 @@
-from openai import OpenAI
-from db_access import RetrieveData
 import os
+
+from db_access import RetrieveData
+from openai import OpenAI
 
 base_url = os.getenv("LM_STUDIO")
 

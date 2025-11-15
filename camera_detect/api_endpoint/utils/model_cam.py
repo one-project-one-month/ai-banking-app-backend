@@ -1,8 +1,9 @@
-import numpy as np
+import asyncio
+import time
+
 import cv2
 import mediapipe as mp
-import time
-import asyncio
+import numpy as np
 
 
 class OpenCam:

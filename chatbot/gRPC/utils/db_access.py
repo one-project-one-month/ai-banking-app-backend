@@ -1,9 +1,10 @@
 import os
+
+import nltk
 import psycopg2
 from dotenv import load_dotenv
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from nltk.tokenize import word_tokenize
-import nltk
 
 nltk.download("punkt")
 

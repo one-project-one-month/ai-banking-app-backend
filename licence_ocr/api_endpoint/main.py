@@ -10,9 +10,9 @@ import sentry_sdk
 import uvicorn
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from utils import model_ocr
 from sentry_sdk.integrations.fastapi import FastApiIntegration
 from sentry_sdk.integrations.starlette import StarletteIntegration
+from utils import model_ocr
 
 load_dotenv()
 

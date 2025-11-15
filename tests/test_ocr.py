@@ -5,6 +5,7 @@ Unit tests for the OCR model.
 import os
 import sys
 import unittest
+
 from licence_ocr.api_endpoint.utils.ocr_model import OCR_Model
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))

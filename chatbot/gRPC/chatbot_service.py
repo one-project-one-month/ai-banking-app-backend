@@ -1,10 +1,12 @@
 import os
 import sys
-import grpc
 from concurrent import futures
-import chatbot_pb2_grpc, chatbot_pb2
-from utils.model_work import RefactorModel
+
+import chatbot_pb2
+import chatbot_pb2_grpc
+import grpc
 from utils.db_access import RetrieveData
+from utils.model_work import RefactorModel
 
 
 class RefactorChatbotService(chatbot_pb2_grpc.chatbot_serviceServicer):

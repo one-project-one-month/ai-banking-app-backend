@@ -1,16 +1,17 @@
-from utils import chat_model_work
-from db_access import RetrieveData
-from fastapi import FastAPI
-import uvicorn
-from contextlib import asynccontextmanager
-from schema import textRequest
-import mlflow
 import os
 import traceback
-from dotenv import load_dotenv
+from contextlib import asynccontextmanager
+
 import dagshub
+import mlflow
+import uvicorn
+from db_access import RetrieveData
+from dotenv import load_dotenv
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from schema import textRequest
+from utils import chat_model_work
 
 load_dotenv()
 

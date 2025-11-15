@@ -1,5 +1,6 @@
+import chatbot_pb2
+import chatbot_pb2_grpc
 import grpc
-import chatbot_pb2, chatbot_pb2_grpc
 
 channel = grpc.insecure_channel("localhost:50051")
 stub = chatbot_pb2_grpc.chatbot_serviceStub(channel)

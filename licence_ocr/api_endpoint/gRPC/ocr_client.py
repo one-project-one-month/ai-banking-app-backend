@@ -1,5 +1,6 @@
 import grpc
-import ocr_pb2, ocr_pb2_grpc
+import ocr_pb2
+import ocr_pb2_grpc
 
 # Connect to gRPC server
 channel = grpc.insecure_channel("localhost:50051")

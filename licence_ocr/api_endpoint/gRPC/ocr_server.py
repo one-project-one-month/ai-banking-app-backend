@@ -1,6 +1,9 @@
-import grpc
 from concurrent import futures
-import ocr_pb2, ocr_pb2_grpc
+
+import grpc
+import ocr_pb2
+import ocr_pb2_grpc
+
 from licence_ocr.api_endpoint.ocr_grpc_model import OCR_Model
 
 
