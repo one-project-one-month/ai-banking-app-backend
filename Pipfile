@@ -26,6 +26,9 @@ openai = "*"
 
 [dev-packages]
 ipykernel = "*"
+flake8 = "*"
+black = "*"
+isort = "*"
 
 [requires]
 python_version = "3.11"
