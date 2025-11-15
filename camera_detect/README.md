@@ -153,7 +153,7 @@ min_detection_confidence=0.5
 min_tracking_confidence=0.5
 
 # Pose hold time
-hold_time = 1.0  # seconds
+hold_time = 3.0  # seconds
 ```
 
 ## Security Considerations
@@ -162,31 +162,6 @@ hold_time = 1.0  # seconds
 - **Real-time Processing**: No stored biometric data
 - **Session Management**: Reset capability for failed attempts
 - **Privacy**: No persistent storage of facial data
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Camera not found**:
-   - Ensure camera is connected and not in use by other applications
-   - Check camera permissions on your system
-
-2. **Poor detection accuracy**:
-   - Ensure good lighting conditions
-   - Position face clearly in camera view
-   - Check camera focus and resolution
-
-3. **API connection issues**:
-   - Verify the server is running on the correct port
-   - Check firewall settings for port 8000/5006
-
-### Debug Mode
-
-Enable debug logging by setting environment variables:
-```bash
-export PYTHONPATH=/path/to/camera_detect
-export DEBUG=1
-```
 
 ## License
 

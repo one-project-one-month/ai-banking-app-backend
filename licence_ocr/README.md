@@ -25,25 +25,21 @@ A FastAPI-based backend application for AI-powered banking services, featuring O
 
 ```
 licence_ocr/
-├── README.md
-├── utils.py
-├── api_endpoint/
+├── api_endpoint
 │   ├── Dockerfile
-│   ├── ocr.proto
-│   ├── __pycache__/
-│   ├── gRPC/
+│   ├── gRPC
 │   │   ├── ocr_client.py
 │   │   ├── ocr_grpc_model.py
 │   │   ├── ocr_pb2_grpc.py
 │   │   ├── ocr_pb2.py
-│   │   └── ocr_server.py
-│   └── rest/
-│       ├── main.py
-│       ├── ocr_model.py
-│       └── __pycache__/
-├── images/
-│   ├── ocr_doc.png
-│   └── ocr_postman.png
+│   │   ├── ocr_server.py
+│   │   └── ocr.proto
+│   ├── main.py
+│   ├── ocr_model_work.ipynb
+│   └── utils
+│       ├── __init__.py
+│       └── model_ocr.py
+└── README.md
 ```
 
 ## Installation
@@ -104,7 +100,7 @@ python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. ocr.proto
 ---
 
 
-### Starting the API Server in *licence_ocr/api_endpoint/rest* directory
+### Starting the API Server in *licence_ocr/api_endpoint* directory
 
 ```bash
 uvicorn main:app --reload --port 5001 
@@ -145,21 +141,12 @@ curl -X POST "http://127.0.0.1:5001/ocr" \
 **Example Response:**
 ```json
 {
-  "data": "12/ABC(N)1234567"
+  "data": {
+    "kyc": "123456A",
+    "dateOfBirth": "XXXX-XX-XX"
+  }
 }
 ```
-
-## Demonstration
-
-In fastapi http://127.0.0.1:5000/docs 
-
-![In FastAPI Docs](images/ocr_doc.png)  
-*Figure 1: In FastAPI Docs Output*
-
-In Postman you can test:
-
-![In FastAPI Docs](images/ocr_postman.png)  
-*Figure 2: In Postman Output*
 
 ## Testing
 
@@ -172,7 +159,7 @@ python tests/test_ocr.py
 ## OCR Capabilities
 
 ### License OCR
-- **Pattern Recognition**: Extracts NRC (National Registration Card) numbers
+- **Pattern Recognition**: Extracts NRC (National Registration Card) numbers and DOB
 - **Format**: `DD/NAME(N)XXXXXXX` where:
   - `DD`: 1-2 digit day
   - `NAME`: Name in uppercase letters
@@ -181,7 +168,7 @@ python tests/test_ocr.py
 - **Preprocessing**: Brightness and contrast enhancement for better accuracy
 
 ### Passport OCR
-- **Pattern Recognition**: Extracts passport numbers
+- **Pattern Recognition**: Extracts passport numbers and DOB
 - **Format**: `XX########` where:
   - `XX`: 1-2 uppercase letters
   - `########`: 6-8 digits

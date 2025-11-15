@@ -10,7 +10,7 @@ services:
     ports:
       - "5006:5006"  
     volumes:
-      - ./camera_detect:/app
+      - ./camera_detect/api_endpoint:/app
     command: uvicorn cam_api:app --host 0.0.0.0 --port 5006
     networks:
       - backend
@@ -29,7 +29,23 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --port 5001
     networks:
       - backend
-
+  
+  chatbot:
+    build:
+      context: .
+      dockerfile: chatbot/api_endpoint/Dockerfile
+    container_name: chatbot
+    restart: always
+    ports:
+      - "5080:5080"  
+    volumes:
+      - ./chatbot/api_endpoint:/app
+    working_dir: /app
+    env_file:
+      - .env
+    command: sh -c "uvicorn main:app --host 0.0.0.0 --port 5080"
+    networks:
+      - backend
 networks:
   backend:
     driver: bridge
