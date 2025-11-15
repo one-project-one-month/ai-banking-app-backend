@@ -25,7 +25,8 @@ jobs:
           PIPENV_IGNORE_VIRTUALENVS: 1
         run: |
           pip install pipenv
-          pipenv install --dev --deploy
+          pipenv --python $(which python)   
+          pipenv install --dev --deploy     
 
       - name: Lint code
         run: |
