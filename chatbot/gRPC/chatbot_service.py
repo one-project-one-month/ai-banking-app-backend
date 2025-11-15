@@ -1,10 +1,13 @@
 import os
 import sys
-import grpc
 from concurrent import futures
-import chatbot_pb2_grpc, chatbot_pb2
-from utils.model_work import RefactorModel
+
+import chatbot_pb2
+import chatbot_pb2_grpc
+import grpc
 from utils.db_access import RetrieveData
+from utils.model_work import RefactorModel
+
 
 class RefactorChatbotService(chatbot_pb2_grpc.chatbot_serviceServicer):
     def AddChatRequest(self, request, context):
@@ -21,13 +24,17 @@ class RefactorChatbotService(chatbot_pb2_grpc.chatbot_serviceServicer):
         model = RefactorModel()
         result_work = model.model_work(take_sim)
         return chatbot_pb2.ResponseModel(response=result_work)
-    
+
+
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    chatbot_pb2_grpc.add_chatbot_serviceServicer_to_server(RefactorChatbotService(), server)
+    chatbot_pb2_grpc.add_chatbot_serviceServicer_to_server(
+        RefactorChatbotService(), server
+    )
     server.add_insecure_port("[::]:50051")
     server.start()
     server.wait_for_termination()
+
 
 if __name__ == "__main__":
     serve()

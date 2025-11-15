@@ -1,16 +1,17 @@
-from utils import chat_model_work
-from db_access import RetrieveData
-from fastapi import FastAPI
-import uvicorn 
-from contextlib import asynccontextmanager
-from schema import textRequest
-import mlflow 
 import os
-import traceback 
-from dotenv import load_dotenv 
+import traceback
+from contextlib import asynccontextmanager
+
 import dagshub
+import mlflow
+import uvicorn
+from db_access import RetrieveData
+from dotenv import load_dotenv
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from schema import textRequest
+from utils import chat_model_work
 
 load_dotenv()
 
@@ -21,7 +22,7 @@ DAGSHUB_REPO_NAME = os.getenv("DAGSHUB_REPO_NAME", "ai-banking-app-backend")
 
 dagshub.init(repo_owner=DAGSHUB_REPO_OWNER, repo_name=DAGSHUB_REPO_NAME, mlflow=True)
 
-mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI_v1"))  
+mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI_v1"))
 
 mlflow.set_experiment(os.getenv("MLFLOW_EXPERIMENT_NAME"))
 
@@ -29,14 +30,16 @@ mlflow.autolog(log_models=False)
 
 mlflow.set_tag("repo", f"{DAGSHUB_REPO_OWNER}/{DAGSHUB_REPO_NAME}")
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Initialize the Refactor model on startup and clean up on shutdown."""
-    model_work = chat_model_work.RefactorModel() # RefactorModel
-    model['RefactorModel'] = model_work 
-    yield 
+    model_work = chat_model_work.RefactorModel()  # RefactorModel
+    model["RefactorModel"] = model_work
+    yield
 
     model.clear()
+
 
 app = FastAPI(lifespan=lifespan)
 
@@ -52,6 +55,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.post("/ask")
 @mlflow.trace
@@ -69,11 +73,11 @@ def request_text(textRequest: textRequest) -> str:
             concat_qa = db.concat(ques_ret, ans_ret)
             pre_dc = db.preprocessing_doc()
             take_sim = db.most_sim(concat_qa, pre_dc)
-            
-            result_work = model['RefactorModel'].model_work(take_sim)
+
+            result_work = model["RefactorModel"].model_work(take_sim)
 
             mlflow.log_param("model_output", result_work)
-            
+
             return JSONResponse(content={"answer": result_work})
 
         except Exception as e:
@@ -86,5 +90,7 @@ def request_text(textRequest: textRequest) -> str:
 
         finally:
             db.close()
+
+
 if __name__ == "__main__":
-    uvicorn.run("main:app", host='0.0.0.0', port=5080, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=5080, reload=True)

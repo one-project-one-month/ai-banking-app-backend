@@ -9,34 +9,30 @@ from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import runtime_version as _runtime_version
 from google.protobuf import symbol_database as _symbol_database
 from google.protobuf.internal import builder as _builder
+
 _runtime_version.ValidateProtobufRuntimeVersion(
-    _runtime_version.Domain.PUBLIC,
-    6,
-    31,
-    1,
-    '',
-    'ocr.proto'
+    _runtime_version.Domain.PUBLIC, 6, 31, 1, "", "ocr.proto"
 )
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
 
-
-
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tocr.proto\x12\x07nrc_ocr\" \n\rAddLICENCEOCR\x12\x0f\n\x07licence\x18\x01 \x01(\x0c\"&\n\x12\x41\x64\x64LICENCEPASSPORT\x12\x10\n\x08passport\x18\x01 \x01(\x0c\"\"\n\x0c\x41\x64\x64OutputNRC\x12\x12\n\noutput_nrc\x18\x01 \x01(\t2\x9b\x01\n\x0fnrc_ocr_service\x12>\n\rAddLicenceOCR\x12\x16.nrc_ocr.AddLICENCEOCR\x1a\x15.nrc_ocr.AddOutputNRC\x12H\n\x12\x41\x64\x64LicencePassport\x12\x1b.nrc_ocr.AddLICENCEPASSPORT\x1a\x15.nrc_ocr.AddOutputNRCb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
+    b'\n\tocr.proto\x12\x07nrc_ocr" \n\rAddLICENCEOCR\x12\x0f\n\x07licence\x18\x01 \x01(\x0c"&\n\x12\x41\x64\x64LICENCEPASSPORT\x12\x10\n\x08passport\x18\x01 \x01(\x0c""\n\x0c\x41\x64\x64OutputNRC\x12\x12\n\noutput_nrc\x18\x01 \x01(\t2\x9b\x01\n\x0fnrc_ocr_service\x12>\n\rAddLicenceOCR\x12\x16.nrc_ocr.AddLICENCEOCR\x1a\x15.nrc_ocr.AddOutputNRC\x12H\n\x12\x41\x64\x64LicencePassport\x12\x1b.nrc_ocr.AddLICENCEPASSPORT\x1a\x15.nrc_ocr.AddOutputNRCb\x06proto3'
+)
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
-_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ocr_pb2', _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, "ocr_pb2", _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_ADDLICENCEOCR']._serialized_start=22
-  _globals['_ADDLICENCEOCR']._serialized_end=54
-  _globals['_ADDLICENCEPASSPORT']._serialized_start=56
-  _globals['_ADDLICENCEPASSPORT']._serialized_end=94
-  _globals['_ADDOUTPUTNRC']._serialized_start=96
-  _globals['_ADDOUTPUTNRC']._serialized_end=130
-  _globals['_NRC_OCR_SERVICE']._serialized_start=133
-  _globals['_NRC_OCR_SERVICE']._serialized_end=288
+    DESCRIPTOR._loaded_options = None
+    _globals["_ADDLICENCEOCR"]._serialized_start = 22
+    _globals["_ADDLICENCEOCR"]._serialized_end = 54
+    _globals["_ADDLICENCEPASSPORT"]._serialized_start = 56
+    _globals["_ADDLICENCEPASSPORT"]._serialized_end = 94
+    _globals["_ADDOUTPUTNRC"]._serialized_start = 96
+    _globals["_ADDOUTPUTNRC"]._serialized_end = 130
+    _globals["_NRC_OCR_SERVICE"]._serialized_start = 133
+    _globals["_NRC_OCR_SERVICE"]._serialized_end = 288
 # @@protoc_insertion_point(module_scope)
