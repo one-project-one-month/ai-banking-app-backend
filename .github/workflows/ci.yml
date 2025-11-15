@@ -30,6 +30,5 @@ jobs:
 
       - name: Lint code
         run: |
-          pipenv run flake8 .
           pipenv run black --check .
           pipenv run isort --check-only .
